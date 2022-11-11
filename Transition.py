@@ -1,7 +1,14 @@
+import re
+
 class Transition:
-    def __init__(self, current_state, read_symbol, next_state, write_symbol, head_movement):
-        self.current_state = current_state      #Estado atual
-        self.read_symbol = read_symbol          #Simbolo atual da fita
-        self.next_state = next_state            #Estado pos transicao
-        self.write_symbol = write_symbol        #Escrita da fita
-        self.head_movement = head_movement      #L ou R
+    def __init__(self, transition):
+        self.current_state, self.read_symbol = transition[transition.index("(") + 1:transition.index(")")].split(",")
+        transition = transition[transition.index("=") + 1:]
+
+        self.next_state, self.write_symbol, self.head_movement = transition[transition.index("(") + 1:transition.index(")")].split(",")
+
+        self.current_state = int(self.current_state)
+        self.next_state = int(self.next_state)
+
+    def __str__(self):
+        return "({},{})=({},{},{})".format(self.current_state, self.read_symbol, self.next_state, self.write_symbol, self.head_movement)
