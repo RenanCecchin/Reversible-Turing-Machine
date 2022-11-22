@@ -21,7 +21,7 @@ for i in range(4, 4 + int(num_transitions)):
     
 reversibleTuringMachine = ReversibleTuringMachine(num_states, input_symbols, queue_symbols, transitions)
 
-state_marker = 1
+state_marker = transitions[0].current_state
 head_marker = 0
 entry = content[-1]
 input_tape = entry + "B"
