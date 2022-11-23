@@ -2,8 +2,7 @@
 #Andriza, Augusto e Renan
 
 import sys
-from Transition import Transition
-from copy import copy
+from Quintuple import Quintuple
 from ReversibleTuringMachine import ReversibleTuringMachine
 
 file = sys.stdin
@@ -17,25 +16,14 @@ queue_symbols = content[3].split()
 transitions = []
 
 for i in range(4, 4 + int(num_transitions)):
-    transitions.append(Transition(content[i]))
-    
-reversibleTuringMachine = ReversibleTuringMachine(num_states, input_symbols, queue_symbols, transitions)
+    transitions.append(Quintuple(content[i]))
 
-state_marker = transitions[0].current_state
-head_marker = 0
 entry = content[-1]
-input_tape = entry + "B"
-input_tape = list(input_tape)
-history_tape = []
+    
+reversibleTuringMachine = ReversibleTuringMachine(num_states, input_symbols, queue_symbols, transitions, entry)
 
-reversibleTuringMachine.makeTransitions(state_marker, head_marker, input_tape, history_tape)
-output_tape = copy(input_tape)
+reversibleTuringMachine.make_transitions()
 
-print("FITA DE INPUT(antes de reverter):", input_tape)
-print("FITA DE HISTORICO(para reversao)", history_tape)
+reversibleTuringMachine.reverse_movement()
 
-reversibleTuringMachine.reverse_movement(history_tape, head_marker, input_tape)
-
-print("FITA DE INPUT REVERTIDA:", input_tape)
-print("FITA DE HISTORICO FINAL", history_tape)
-print("FITA DE OUTPUT", output_tape)
+print(reversibleTuringMachine)
